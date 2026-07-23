@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getGuests, deleteGuest, type Guest } from './api';
-import { Trash2, Users, UserCheck, UserX } from 'lucide-react';
+import { Trash2, Users, UserCheck, UserX, X } from 'lucide-react';
 
 export default function Admin() {
   const [guests, setGuests] = useState<Guest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [deleteName, setDeleteName] = useState('');
 
   const loadGuests = async () => {
     setLoading(true);
@@ -24,15 +26,20 @@ export default function Admin() {
     loadGuests();
   }, []);
 
-  const handleDelete = async (id: string) => {
-    if (confirm('Удалить этот ответ?')) {
-      try {
-        await deleteGuest(id);
-        setGuests(guests.filter((g) => g.id !== id));
-      } catch (e) {
-        console.error(e);
-      }
+  const confirmDelete = (id: string, name: string) => {
+    setDeleteId(id);
+    setDeleteName(name);
+  };
+
+  const handleDelete = async () => {
+    if (!deleteId) return;
+    try {
+      await deleteGuest(deleteId);
+      setGuests(guests.filter((g) => g.id !== deleteId));
+    } catch (e) {
+      console.error(e);
     }
+    setDeleteId(null);
   };
 
   const attending = guests.filter((g) => g.attending === 'yes');
@@ -117,7 +124,7 @@ export default function Admin() {
                     {new Date(guest.created_at).toLocaleDateString('ru-RU')}
                   </span>
                   <button
-                    onClick={() => handleDelete(guest.id)}
+                    onClick={() => confirmDelete(guest.id, guest.name)}
                     className="p-2 text-red-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -135,6 +142,42 @@ export default function Admin() {
           Обновить список
         </button>
       </div>
+
+      {/* Custom Delete Modal */}
+      {deleteId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setDeleteId(null)} />
+          <div className="relative bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-sm w-full text-center">
+            <button
+              onClick={() => setDeleteId(null)}
+              className="absolute top-3 right-3 p-1 text-[#3E2723]/30 hover:text-[#3E2723]/60 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Trash2 className="w-7 h-7 text-red-400" />
+            </div>
+            <h3 className="text-xl font-serif text-[#2C3E2D] mb-2">Удалить ответ?</h3>
+            <p className="text-[#3E2723]/60 text-sm mb-6">
+              Ответ от <span className="font-medium text-[#2C3E2D]">{deleteName}</span> будет удалён
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setDeleteId(null)}
+                className="flex-1 py-2.5 rounded-xl border border-[#8A9A5B]/30 text-[#3E2723] font-medium hover:bg-[#FDFBF7] transition-colors text-sm"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={handleDelete}
+                className="flex-1 py-2.5 rounded-xl bg-red-500 text-white font-medium hover:bg-red-600 transition-colors text-sm"
+              >
+                Удалить
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
