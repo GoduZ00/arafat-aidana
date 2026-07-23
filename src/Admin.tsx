@@ -5,11 +5,18 @@ import { Trash2, Users, UserCheck, UserX } from 'lucide-react';
 export default function Admin() {
   const [guests, setGuests] = useState<Guest[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const loadGuests = async () => {
     setLoading(true);
-    const data = await getGuests();
-    setGuests(data.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()));
+    setError('');
+    try {
+      const data = await getGuests();
+      setGuests(data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
+    } catch (e) {
+      setError('Ошибка загрузки данных');
+      console.error(e);
+    }
     setLoading(false);
   };
 
@@ -19,8 +26,12 @@ export default function Admin() {
 
   const handleDelete = async (id: string) => {
     if (confirm('Удалить этот ответ?')) {
-      await deleteGuest(id);
-      setGuests(guests.filter((g) => g.id !== id));
+      try {
+        await deleteGuest(id);
+        setGuests(guests.filter((g) => g.id !== id));
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
@@ -34,6 +45,12 @@ export default function Admin() {
           Список гостей
         </h1>
         <p className="text-[#3E2723]/60 mb-8">Управление ответами на приглашение</p>
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 mb-6">
+            {error}
+          </div>
+        )}
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-8">
@@ -97,7 +114,7 @@ export default function Admin() {
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
                   <span className="text-xs text-[#3E2723]/40">
-                    {guest.createdAt.toLocaleDateString('ru-RU')}
+                    {new Date(guest.created_at).toLocaleDateString('ru-RU')}
                   </span>
                   <button
                     onClick={() => handleDelete(guest.id)}
