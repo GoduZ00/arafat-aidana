@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MapPin, Calendar, Clock, Heart, Send, Music, VolumeX } from 'lucide-react';
-import { addGuest } from './firebase';
+import { addGuest } from './api';
 
 type Language = 'ru' | 'kk' | 'en';
 

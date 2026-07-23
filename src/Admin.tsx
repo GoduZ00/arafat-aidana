@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getGuests, deleteGuest, type Guest } from './firebase';
+import { getGuests, deleteGuest, type Guest } from './api';
 import { Trash2, Users, UserCheck, UserX } from 'lucide-react';
 
 export default function Admin() {
