@@ -1,9 +1,10 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase: SupabaseClient | null =
+  supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 export interface Guest {
   id: string;
@@ -14,6 +15,7 @@ export interface Guest {
 }
 
 export async function addGuest(data: { name: string; attending: string; guests: string }): Promise<string> {
+  if (!supabase) return 'no-db';
   const { data: result, error } = await supabase
     .from('guests')
     .insert({
@@ -29,6 +31,7 @@ export async function addGuest(data: { name: string; attending: string; guests: 
 }
 
 export async function getGuests(): Promise<Guest[]> {
+  if (!supabase) return [];
   const { data, error } = await supabase
     .from('guests')
     .select('*')
@@ -39,6 +42,7 @@ export async function getGuests(): Promise<Guest[]> {
 }
 
 export async function deleteGuest(id: string): Promise<void> {
+  if (!supabase) return;
   const { error } = await supabase
     .from('guests')
     .delete()
