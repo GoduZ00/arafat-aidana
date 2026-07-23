@@ -354,7 +354,7 @@ export default function App() {
                   <h3 className="text-xl sm:text-2xl font-serif font-semibold mb-1 md:mb-2 text-[#2C3E2D]">{t.location}</h3>
                   <p className="text-[#3E2723]/70 mb-3 md:mb-4 text-base md:text-lg">{t.address}</p>
                   <a 
-                    href={`https://maps.google.com/?q=${encodeURIComponent("Arai Hall, Тараз, Ташкентская 177")}`}
+                    href="https://go.2gis.com/miaQn"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block text-xs sm:text-sm font-medium text-white bg-[#8A9A5B] px-5 py-2.5 md:px-6 md:py-3 rounded-full hover:bg-[#728247] shadow-lg shadow-[#8A9A5B]/20 transition-all"
