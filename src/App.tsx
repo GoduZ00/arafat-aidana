@@ -34,9 +34,9 @@ const translations = {
     poem3: "Взявшись за руки, наша пара свила своё гнездо,",
     poem4: "И готова принять добрые благословения народа.",
     poemAddress: "Уважаемые родственники, братья, сваты, родня, кумы, двоюродные, друзья, коллеги и соседи!",
-    poemInvite: "Приглашаем вас стать дорогими гостями на торжественный банкет нашего сына",
-    poemNames: "Арафат & Айдана",
-    poemEnd: "по случаю их свадьбы!",
+    poemInvite: "Приглашаем вас стать дорогими гостями на торжественный банкет",
+    poemNames: "Семья Ашировых",
+    poemEnd: "по случаю свадьбы Арафата и Айданы!",
     guestsLabel: "С кем придёте?",
     guestsPlaceholder: "С супругом(ой), семьёй..."
   },
@@ -68,8 +68,8 @@ const translations = {
     poem3: "Қол ұстасып отау тіккен қос ботам,",
     poem4: "Көпшіліктің ақ батасын алмақшы.",
     poemAddress: "Құрметті ағайын-туыс, бауырлар, құда-жекжат, нағашы-жиен, бөлелер, дос-жарандар, әріптестер мен көршілер!",
-    poemInvite: "Сіздерді балаларымыздың үйлену тойына арналған салтанатты ақ дастарханымыздың қадірлі қонағы болуға шақырамыз!",
-    poemNames: "Арафат & Айдана",
+    poemInvite: "Сіздерді Арафат пен Айдананың некелесу тойына арналған мерекелік дастарқанымыздың қадірлі қонағы болуға шақырамыз!",
+    poemNames: "Әшіровтар отбасы",
     poemEnd: "",
     guestsLabel: "Кіммен келесіз?",
     guestsPlaceholder: "Жұбаймен, отбасымен..."
@@ -102,9 +102,9 @@ const translations = {
     poem3: "Hand in hand, our pair has built their home,",
     poem4: "And is ready to receive the good blessings of the people.",
     poemAddress: "Dear relatives, brothers, in-laws, godparents, cousins, friends, colleagues, and neighbors!",
-    poemInvite: "We invite you to be honored guests at the celebration of our children",
-    poemNames: "Arafat & Aidana",
-    poemEnd: "on the occasion of their wedding!",
+    poemInvite: "We invite you to be honored guests at the celebration",
+    poemNames: "The Ashirov Family",
+    poemEnd: "on the occasion of Arafat & Aidana's wedding!",
     guestsLabel: "Who are you coming with?",
     guestsPlaceholder: "With spouse, family..."
   }
