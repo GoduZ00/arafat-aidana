@@ -444,8 +444,7 @@ export default function App() {
         <img src="/ornament-vertical.png" alt="" className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 h-full w-28 lg:w-40 object-contain opacity-40 scale-x-[-1]" />
         
         <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif mb-3 md:mb-4 text-[#2C3E2D] leading-tight">{t.rsvpTitle}</h2>
-          <p className="text-[#3E2723]/70 mb-8 md:mb-12 text-sm sm:text-base md:text-lg">{t.rsvpDesc}</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif mb-8 md:mb-12 text-[#2C3E2D] leading-tight">{t.rsvpTitle}</h2>
 
           <AnimatePresence mode="wait">
             {!isSubmitted ? (
