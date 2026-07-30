@@ -190,7 +190,7 @@ export default function App() {
       </div>
       
       {/* Audio Element (User needs to add music.mp3 to public folder) */}
-      <audio ref={audioRef} src="/music.mp3" loop />
+      <audio ref={audioRef} src="/toy-zhury.mp3" loop />
 
       {/* Language Selector */}
       <div className="fixed top-3 right-3 z-50 flex gap-1.5 bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-[#C5A059]/20">
