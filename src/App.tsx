@@ -133,6 +133,25 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => setIsPlaying(true))
+        .catch(() => {
+          const handleInteraction = () => {
+            audio.play().then(() => setIsPlaying(true)).catch(() => {});
+            document.removeEventListener('click', handleInteraction);
+            document.removeEventListener('touchstart', handleInteraction);
+          };
+          document.addEventListener('click', handleInteraction);
+          document.addEventListener('touchstart', handleInteraction);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const difference = TARGET_DATE - now;
@@ -190,7 +209,7 @@ export default function App() {
       </div>
       
       {/* Audio Element (User needs to add music.mp3 to public folder) */}
-      <audio ref={audioRef} src="/toy-zhury.mp3" loop />
+      <audio ref={audioRef} src="/toy-zhury.mp3" loop autoPlay playsInline />
 
       {/* Language Selector */}
       <div className="fixed top-3 right-3 z-50 flex gap-1.5 bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm border border-[#C5A059]/20">
